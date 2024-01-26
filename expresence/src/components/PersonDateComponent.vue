@@ -1,51 +1,20 @@
 <script setup>
 
+import {ref} from 'vue';
+import axios from 'axios';
+
 var date = new Date();
 date.setDate(date.getDate());
 
-const personData = [
+const personData = ref(null);
 
-    {
-        name: "Leif Beckman",
-        days: [
-            { date: date.toLocaleDateString(), coming: true },
-            { date: date.toLocaleDateString(), coming: false },
-            { date: date.toLocaleDateString(), coming: true },
-            { date: date.toLocaleDateString(), coming: false },
-            { date: date.toLocaleDateString(), coming: true }
-        ]
-    },
-    {
-        name: "Thomas Clancy",
-        days: [
-            { date: date.toLocaleDateString(), coming: true },
-            { date: date.toLocaleDateString(), coming: true },
-            { date: date.toLocaleDateString(), coming: true },
-            { date: date.toLocaleDateString(), coming: false },
-            { date: date.toLocaleDateString(), coming: true }
-        ]
-    },
-    {
-        name: "Naguib Mahfouz",
-        days: [
-            { date: date.toLocaleDateString(), coming: false },
-            { date: date.toLocaleDateString(), coming: false },
-            { date: date.toLocaleDateString(), coming: true },
-            { date: date.toLocaleDateString(), coming: true },
-            { date: date.toLocaleDateString(), coming: false }
-        ]
-    },
-    {
-        name: "Haruki Murakami",
-        days: [
-            { date: date.toLocaleDateString(), coming: false },
-            { date: date.toLocaleDateString(), coming: false },
-            { date: date.toLocaleDateString(), coming: true },
-            { date: date.toLocaleDateString(), coming: false },
-            { date: date.toLocaleDateString(), coming: false }
-        ]
-    }
-];
+axios.get('/static-api.com.json')
+.then(res => {
+    console.log(res.data);
+    personData.value = res.data;
+})
+
+
 </script>
 
 <template>

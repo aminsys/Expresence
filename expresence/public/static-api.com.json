@@ -1,0 +1,527 @@
+[
+    {
+        "name": "Leif Beckman",
+        "days": [
+            {
+                "date": "2024-01-22",
+                "coming": true
+            },
+            {
+                "date": "2024-01-23",
+                "coming": false
+            },
+            {
+                "date": "2024-01-24",
+                "coming": true
+            },
+            {
+                "date": "2024-01-25",
+                "coming": false
+            },
+            {
+                "date": "2024-01-26",
+                "coming": true
+            }
+        ]
+    },
+    {
+        "name": "Thomas Clancy",
+        "days": [
+            {
+                "date": "2024-01-22",
+                "coming": true
+            },
+            {
+                "date": "2024-01-23",
+                "coming": true
+            },
+            {
+                "date": "2024-01-24",
+                "coming": true
+            },
+            {
+                "date": "2024-01-25",
+                "coming": false
+            },
+            {
+                "date": "2024-01-26",
+                "coming": true
+            }
+        ]
+    },
+    {
+        "name": "Naguib Mahfouz",
+        "days": [
+            {
+                "date": "2024-01-22",
+                "coming": false
+            },
+            {
+                "date": "2024-01-23",
+                "coming": true
+            },
+            {
+                "date": "2024-01-24",
+                "coming": true
+            },
+            {
+                "date": "2024-01-25",
+                "coming": false
+            },
+            {
+                "date": "2024-01-26",
+                "coming": false
+            }
+        ]
+    },
+    {
+        "name": "Haruki Murakami",
+        "days": [
+            {
+                "date": "2024-01-29",
+                "coming": false
+            },
+            {
+                "date": "2024-01-30",
+                "coming": false
+            },
+            {
+                "date": "2024-01-31",
+                "coming": true
+            },
+            {
+                "date": "2024-02-01",
+                "coming": false
+            },
+            {
+                "date": "2024-02-02",
+                "coming": false
+            }
+        ]
+    },
+    {
+        "name": "JD Salinger",
+        "days": [
+            {
+                "date": "2024-01-22",
+                "coming": true
+            },
+            {
+                "date": "2024-01-23",
+                "coming": true
+            },
+            {
+                "date": "2024-01-24",
+                "coming": true
+            },
+            {
+                "date": "2024-01-25",
+                "coming": false
+            },
+            {
+                "date": "2024-01-26",
+                "coming": false
+            }
+        ]
+    },
+    {
+        "name": "Maggie Gee",
+        "days": [
+            {
+                "date": "2024-01-22",
+                "coming": false
+            },
+            {
+                "date": "2024-01-23",
+                "coming": false
+            },
+            {
+                "date": "2024-01-24",
+                "coming": false
+            },
+            {
+                "date": "2024-01-25",
+                "coming": false
+            },
+            {
+                "date": "2024-01-26",
+                "coming": true
+            }
+        ]
+    },
+    {
+        "name": "Sebastian Faulks",
+        "days": [
+            {
+                "date": "2024-01-22",
+                "coming": false
+            },
+            {
+                "date": "2024-01-23",
+                "coming": false
+            },
+            {
+                "date": "2024-01-24",
+                "coming": false
+            },
+            {
+                "date": "2024-01-25",
+                "coming": false
+            },
+            {
+                "date": "2024-01-26",
+                "coming": false
+            }
+        ]
+    },
+    {
+        "name": "Neil Gaiman",
+        "days": [
+            {
+                "date": "2024-01-22",
+                "coming": false
+            },
+            {
+                "date": "2024-01-23",
+                "coming": true
+            },
+            {
+                "date": "2024-01-24",
+                "coming": true
+            },
+            {
+                "date": "2024-01-25",
+                "coming": false
+            },
+            {
+                "date": "2024-01-26",
+                "coming": true
+            }
+        ]
+    },
+    {
+        "name": "Georgi Gospodinov",
+        "days": [
+            {
+                "date": "2024-01-22",
+                "coming": false
+            },
+            {
+                "date": "2024-01-23",
+                "coming": false
+            },
+            {
+                "date": "2024-01-24",
+                "coming": true
+            },
+            {
+                "date": "2024-01-25",
+                "coming": true
+            },
+            {
+                "date": "2024-01-26",
+                "coming": false
+            }
+        ]
+    },
+    {
+        "name": "Geetanjali Shree",
+        "days": [
+            {
+                "date": "2024-01-22",
+                "coming": false
+            },
+            {
+                "date": "2024-01-23",
+                "coming": true
+            },
+            {
+                "date": "2024-01-24",
+                "coming": true
+            },
+            {
+                "date": "2024-01-25",
+                "coming": false
+            },
+            {
+                "date": "2024-01-26",
+                "coming": false
+            }
+        ]
+    },
+    {
+        "name": "Marieke Lucas Rijneveld",
+        "days": [
+            {
+                "date": "2024-01-22",
+                "coming": false
+            },
+            {
+                "date": "2024-01-23",
+                "coming": false
+            },
+            {
+                "date": "2024-01-24",
+                "coming": true
+            },
+            {
+                "date": "2024-01-25",
+                "coming": false
+            },
+            {
+                "date": "2024-01-26",
+                "coming": false
+            }
+        ]
+    },
+    {
+        "name": "Jokha Alharthi",
+        "days": [
+            {
+                "date": "2024-01-22",
+                "coming": false
+            },
+            {
+                "date": "2024-01-23",
+                "coming": false
+            },
+            {
+                "date": "2024-01-24",
+                "coming": true
+            },
+            {
+                "date": "2024-01-25",
+                "coming": true
+            },
+            {
+                "date": "2024-01-26",
+                "coming": false
+            }
+        ]
+    },
+    {
+        "name": "Olga Tokarczuk",
+        "days": [
+            {
+                "date": "2024-01-22",
+                "coming": true
+            },
+            {
+                "date": "2024-01-23",
+                "coming": true
+            },
+            {
+                "date": "2024-01-24",
+                "coming": true
+            },
+            {
+                "date": "2024-01-25",
+                "coming": false
+            },
+            {
+                "date": "2024-01-26",
+                "coming": false
+            }
+        ]
+    },
+    {
+        "name": "David Grossman",
+        "days": [
+            {
+                "date": "2024-01-22",
+                "coming": true
+            },
+            {
+                "date": "2024-01-23",
+                "coming": false
+            },
+            {
+                "date": "2024-01-24",
+                "coming": false
+            },
+            {
+                "date": "2024-01-25",
+                "coming": true
+            },
+            {
+                "date": "2024-01-26",
+                "coming": false
+            }
+        ]
+    },
+    {
+        "name": "Han Kang",
+        "days": [
+            {
+                "date": "2024-01-22",
+                "coming": false
+            },
+            {
+                "date": "2024-01-23",
+                "coming": false
+            },
+            {
+                "date": "2024-01-24",
+                "coming": false
+            },
+            {
+                "date": "2024-01-25",
+                "coming": false
+            },
+            {
+                "date": "2024-01-26",
+                "coming": true
+            }
+        ]
+    },
+    {
+        "name": "László Krasznahorkai",
+        "days": [
+            {
+                "date": "2024-01-22",
+                "coming": true
+            },
+            {
+                "date": "2024-01-23",
+                "coming": true
+            },
+            {
+                "date": "2024-01-24",
+                "coming": false
+            },
+            {
+                "date": "2024-01-25",
+                "coming": true
+            },
+            {
+                "date": "2024-01-26",
+                "coming": true
+            }
+        ]
+    },
+    {
+        "name": "Lydia Davis",
+        "days": [
+            {
+                "date": "2024-01-22",
+                "coming": false
+            },
+            {
+                "date": "2024-01-23",
+                "coming": true
+            },
+            {
+                "date": "2024-01-24",
+                "coming": false
+            },
+            {
+                "date": "2024-01-25",
+                "coming": true
+            },
+            {
+                "date": "2024-01-26",
+                "coming": false
+            }
+        ]
+    },
+    {
+        "name": "Philip Roth",
+        "days": [
+            {
+                "date": "2024-01-22",
+                "coming": true
+            },
+            {
+                "date": "2024-01-23",
+                "coming": false
+            },
+            {
+                "date": "2024-01-24",
+                "coming": false
+            },
+            {
+                "date": "2024-01-25",
+                "coming": false
+            },
+            {
+                "date": "2024-01-26",
+                "coming": true
+            }
+        ]
+    },
+    {
+        "name": "Alice Munro",
+        "days": [
+            {
+                "date": "2024-01-22",
+                "coming": true
+            },
+            {
+                "date": "2024-01-23",
+                "coming": false
+            },
+            {
+                "date": "2024-01-24",
+                "coming": true
+            },
+            {
+                "date": "2024-01-25",
+                "coming": true
+            },
+            {
+                "date": "2024-01-26",
+                "coming": false
+            }
+        ]
+    },
+    {
+        "name": "Chinua Achebe",
+        "days": [
+            {
+                "date": "2024-01-22",
+                "coming": true
+            },
+            {
+                "date": "2024-01-23",
+                "coming": false
+            },
+            {
+                "date": "2024-01-24",
+                "coming": true
+            },
+            {
+                "date": "2024-01-25",
+                "coming": false
+            },
+            {
+                "date": "2024-01-26",
+                "coming": true
+            }
+        ]
+    },
+    {
+        "name": "Ismail Kadare",
+        "days": [
+            {
+                "date": "2024-01-22",
+                "coming": true
+            },
+            {
+                "date": "2024-01-23",
+                "coming": false
+            },
+            {
+                "date": "2024-01-24",
+                "coming": false
+            },
+            {
+                "date": "2024-01-25",
+                "coming": false
+            },
+            {
+                "date": "2024-01-26",
+                "coming": false
+            }
+        ]
+    }
+]
