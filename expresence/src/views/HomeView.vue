@@ -1,7 +1,6 @@
 <script setup>
 import Calendar from '../components/CalendarComponent.vue'
 import LogoNav from '../components/LogoNavComponent.vue'
-import PersonDate from '../components/PersonDateComponent.vue';
 </script>
 
 <template>

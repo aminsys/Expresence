@@ -67,6 +67,8 @@ const personData = [
     background-color: green;
     border-radius: 50%;
     display: inline-block;
+    border-color: #78D965;
+    box-shadow: 0px 0px 4px 1px #94E185;
 }
 
 .red-dot {
@@ -75,5 +77,7 @@ const personData = [
     background-color: red;
     border-radius: 50%;
     display: inline-block;
+    border-color: #C42C3B;
+    box-shadow: 0px 0px 4px 1px #C9404D;
 }
 </style>
