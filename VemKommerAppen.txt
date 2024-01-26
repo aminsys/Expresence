@@ -1,0 +1,69 @@
+Syftet är att se vilka som är på kontoret och vilka dagar de är där.
+
+Krav:
+1. Inte öppet för publik användning; exklusivt användande.
+2. Att kunna se dagar för aktuell vecka.
+3. Lista vilka som är där och anmält närvaro för aktuell vecka/ dagar per vecka.
+4. Kryssa i/ ur om status för användaren för den veckan/ dagar.
+
+Funktionalitet:
+1. 
+
+How to?
+1. mobil, dator
+2. webbläsare, mobilapp
+
+Tech stack:
+1. Frontend: Vue.js?
+2. Backend (autentisering, API) + Databas ()? Sqlite?
+3. Cloud: Azure + AWS
+4. Git: Github
+5. 
+
+Implementation:
+1. Frontend: Visa data i UI samt CRUD mot servern.
+2. Backend: 
+	- API endpoints (GraphQL)
+		-- /persons
+			-- GET: lista av id och namn
+			-- POST: JSON {name}
+			
+		-- /persons/<id>
+			-- GET: id och namn
+			-- PUT: namn
+			-- DELETE: no body
+
+		-- /days
+			-- GET: ?&from=&to= 
+			-- POST: JSON {personid, kommer, datum}
+		
+		-- /login (med tokens)
+			-- POST: krypterat användaruppgifter och får tillbaka token
+
+		-- /register
+			-- POST: krypterat användaruppgifter
+
+
+
+============================
+
+Person{
+	string namn,
+	Map<datum, bool kommer>
+}
+Day {
+	bool true/ false
+	datum UTC
+}
+============================
+To do:
+1. Implementera frontend
+	-- Bygg GUI:t (Vue.js)
+	-- research för bästa och enklaste kommunikation med API
+
+2. Implementera API + Databas
+	-- Skapa endpoints
+	-- Skapa databas
+
+3. Hur autentiseringen ska implementeras? (och authorization)?
+	
