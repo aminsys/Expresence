@@ -48,8 +48,8 @@ function getCurrentWeekDates(days) {
 <template>
   <div class="calendar">
     <div class="calendar-btn">
-      <button class="btn" @click="clickSevenDaysBehind"> < </button>
-      <button class="btn" @click="clickSevenDaysAhead"> > </button>
+      <button class="btn" @click="clickSevenDaysBehind"> &lt; </button>
+      <button class="btn" @click="clickSevenDaysAhead"> &gt; </button>
     </div>
 
     <table>
