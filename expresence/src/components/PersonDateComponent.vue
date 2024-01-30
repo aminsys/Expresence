@@ -1,29 +1,27 @@
 <script setup>
 
-import {ref} from 'vue';
-import axios from 'axios';
+import {useDataStore} from '@/stores/DataStore.js';
 
-var date = new Date();
-date.setDate(date.getDate());
+const props = defineProps(['weekObj']);
 
-const personData = ref(null);
+const dataStore = useDataStore();
+dataStore.populateData();
 
-axios.get('/static-api.com.json')
-.then(res => {
-    console.log(res.data);
-    personData.value = res.data;
-})
-
+function compareDates(apiDate, calendarDate) {
+    let d1 = new Date(apiDate);
+    d1 = d1.toDateString().slice(0,10);
+    return d1 === calendarDate;
+}
 
 </script>
 
 <template>
-    <tr v-for="person in personData">
+    <tr v-for="person in dataStore.data">
         <td>
             {{ person.name }}
         </td>
         <td v-for="(days, index) in person.days" :key="index">
-            <span v-if="days.coming" class="green-dot"></span>
+            <span v-if="days.coming && compareDates(days.date, weekObj[index])" class="green-dot"></span>
             <span v-else class="red-dot"></span>
         </td>
     </tr>

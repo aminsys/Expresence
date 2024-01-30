@@ -79,7 +79,7 @@
         "days": [
             {
                 "date": "2024-01-29",
-                "coming": false
+                "coming": true
             },
             {
                 "date": "2024-01-30",
@@ -95,7 +95,7 @@
             },
             {
                 "date": "2024-02-02",
-                "coming": false
+                "coming": true
             }
         ]
     },
@@ -153,24 +153,24 @@
         "name": "Sebastian Faulks",
         "days": [
             {
-                "date": "2024-01-22",
+                "date": "2024-02-05",
                 "coming": false
             },
             {
-                "date": "2024-01-23",
+                "date": "2024-02-06",
+                "coming": true
+            },
+            {
+                "date": "2024-02-07",
                 "coming": false
             },
             {
-                "date": "2024-01-24",
-                "coming": false
+                "date": "2024-02-08",
+                "coming": true
             },
             {
-                "date": "2024-01-25",
-                "coming": false
-            },
-            {
-                "date": "2024-01-26",
-                "coming": false
+                "date": "2024-02-09",
+                "coming": true
             }
         ]
     },

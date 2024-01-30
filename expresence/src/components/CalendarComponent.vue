@@ -61,7 +61,7 @@ function getCurrentWeekDates(days) {
         <th>{{ weekDates[3] }}</th>
         <th>{{ weekDates[4] }}</th>
       </tr>
-      <personDate></personDate>
+      <personDate :weekObj="weekDates"></personDate>
     </table>
   </div>
 </template>
