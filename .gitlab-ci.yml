@@ -12,9 +12,9 @@ build-job:
   image: node
   script:
     - echo "Running 'npm install' command..."
-    - npm  install --prefix ./expresnce
+    - npm  install --prefix ./expresence
     - echo "Running 'npm run build' command..."
-    - npm run build --prefix ./expresnce
+    - npm run build --prefix ./expresence
   artifacts:
     paths:
       - "build/"
