@@ -17,4 +17,4 @@ build-job:
     - npm run build --prefix ./expresence
   artifacts:
     paths:
-      - "build/"
+      - "/build"
