@@ -48,8 +48,8 @@ function getCurrentWeekDates(days) {
 <template>
   <div class="calendar">
     <div class="calendar-btn">
-      <button @click="clickSevenDaysBehind"> < </button>
-      <button @click="clickSevenDaysAhead"> > </button>
+      <button class="btn" @click="clickSevenDaysBehind"> &lt; </button>
+      <button class="btn" @click="clickSevenDaysAhead"> &gt; </button>
     </div>
 
     <table>
@@ -61,11 +61,7 @@ function getCurrentWeekDates(days) {
         <th>{{ weekDates[3] }}</th>
         <th>{{ weekDates[4] }}</th>
       </tr>
-      <tr><personDate></personDate></tr>
-      <tr><personDate></personDate></tr>
-      <tr><personDate></personDate></tr>
-      <tr><personDate></personDate></tr>
-      <tr><personDate></personDate></tr>
+      <personDate></personDate>
     </table>
   </div>
 </template>
@@ -97,10 +93,13 @@ tr:nth-child(even) {
   margin-top: 20px;
 }
 
-button {
+.btn {
+  height: 25px;
+  width: 25px;
   background-color: lightskyblue;
-  border-radius: 1rem;
-  font-size: 1rem;
+  border-radius: 50%;
   font-weight: bold;
+  border-color: rgb(194, 222, 240);
+  box-shadow: 0px 0px 4px 1px #41c6d2;
 }
 </style>
