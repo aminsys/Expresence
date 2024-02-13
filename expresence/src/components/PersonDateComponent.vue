@@ -1,60 +1,35 @@
 <script setup>
 
-var date = new Date();
-date.setDate(date.getDate());
+import {useDataStore} from '@/stores/DataStore.js';
+import {watch} from 'vue';
 
-const personData = [
+const props = defineProps(['weekObj']);
 
-    {
-        name: "Leif Beckman",
-        days: [
-            { date: date.toLocaleDateString(), coming: true },
-            { date: date.toLocaleDateString(), coming: false },
-            { date: date.toLocaleDateString(), coming: true },
-            { date: date.toLocaleDateString(), coming: false },
-            { date: date.toLocaleDateString(), coming: true }
-        ]
-    },
-    {
-        name: "Thomas Clancy",
-        days: [
-            { date: date.toLocaleDateString(), coming: true },
-            { date: date.toLocaleDateString(), coming: true },
-            { date: date.toLocaleDateString(), coming: true },
-            { date: date.toLocaleDateString(), coming: false },
-            { date: date.toLocaleDateString(), coming: true }
-        ]
-    },
-    {
-        name: "Naguib Mahfouz",
-        days: [
-            { date: date.toLocaleDateString(), coming: false },
-            { date: date.toLocaleDateString(), coming: false },
-            { date: date.toLocaleDateString(), coming: true },
-            { date: date.toLocaleDateString(), coming: true },
-            { date: date.toLocaleDateString(), coming: false }
-        ]
-    },
-    {
-        name: "Haruki Murakami",
-        days: [
-            { date: date.toLocaleDateString(), coming: false },
-            { date: date.toLocaleDateString(), coming: false },
-            { date: date.toLocaleDateString(), coming: true },
-            { date: date.toLocaleDateString(), coming: false },
-            { date: date.toLocaleDateString(), coming: false }
-        ]
-    }
-];
+const dataStore = useDataStore();
+dataStore.populateData();
+
+function compareDates(apiDate, calendarDate) {
+    let d1 = new Date(apiDate);
+    d1 = d1.toDateString().slice(0,10);
+    return d1 === calendarDate;
+}
+
+watch(props, async() =>{
+    dataStore.populateData();
+});
+
 </script>
 
 <template>
-    <tr v-for="person in personData">
+    <tr v-for="person in dataStore.data">
         <td>
             {{ person.name }}
         </td>
-        <td v-for="(days, index) in person.days" :key="index">
-            <span v-if="days.coming" class="green-dot"></span>
+        <td v-for="(weekDay, index) in weekObj" :key="index">
+            <div v-if="person.days[index]"> <!-- Check if array is not out of bounds -->
+                <span v-if="person.days[index].coming && compareDates(person.days[index].date, weekDay)" class="green-dot"></span>
+                <span v-else class="red-dot"></span>
+            </div>
             <span v-else class="red-dot"></span>
         </td>
     </tr>
