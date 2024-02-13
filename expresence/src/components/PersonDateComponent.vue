@@ -1,6 +1,7 @@
 <script setup>
 
 import {useDataStore} from '@/stores/DataStore.js';
+import {watch} from 'vue';
 
 const props = defineProps(['weekObj']);
 
@@ -13,6 +14,10 @@ function compareDates(apiDate, calendarDate) {
     return d1 === calendarDate;
 }
 
+watch(props, async() =>{
+    dataStore.populateData();
+});
+
 </script>
 
 <template>
@@ -20,8 +25,11 @@ function compareDates(apiDate, calendarDate) {
         <td>
             {{ person.name }}
         </td>
-        <td v-for="(days, index) in person.days" :key="index">
-            <span v-if="days.coming && compareDates(days.date, weekObj[index])" class="green-dot"></span>
+        <td v-for="(weekDay, index) in weekObj" :key="index">
+            <div v-if="person.days[index]"> <!-- Check if array is not out of bounds -->
+                <span v-if="person.days[index].coming && compareDates(person.days[index].date, weekDay)" class="green-dot"></span>
+                <span v-else class="red-dot"></span>
+            </div>
             <span v-else class="red-dot"></span>
         </td>
     </tr>
