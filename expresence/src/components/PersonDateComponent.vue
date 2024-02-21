@@ -27,19 +27,20 @@ function compareDates(apiDate, calendarDate) {
 }
 
 watch(props, async() =>{
-    dataStore.populateData();
+    await dataStore.populateData();
+    loggedInUserData.value = getLoggedInUserData(dataStore.data,"Thomas Clancy");
 });
 
 onMounted(async () => {
     await dataStore.populateData();
-    loggedInUserData.value = getLoggedInUserData(dataStore.data,"Han Kang");
+    loggedInUserData.value = getLoggedInUserData(dataStore.data,"Thomas Clancy");
     isMounted.value = true;
 });
 
 </script>
 
 <template>
-    <LoggedInUser v-if="isMounted && loggedInUserData" :loggedInUserData="loggedInUserData" />
+    <LoggedInUser v-if="isMounted" :loggedInUserData="loggedInUserData" :userWeekObj="weekObj" />
     <tr v-for="person in dataStore.data">
         <td>
             {{ person.name }}

@@ -1,5 +1,5 @@
 <script setup>
-const props = defineProps(['loggedInUserData']);
+const props = defineProps(['loggedInUserData', 'userWeekObj']);
 
 
 function compareDates(apiDate, calendarDate) {
@@ -16,11 +16,11 @@ function compareDates(apiDate, calendarDate) {
             {{ loggedInUserData.name }}
         </td>
         <td v-for="(weekDay, index) in loggedInUserData.days" :key="index">
-            <div v-if="weekDay[index]">
-                <span v-if="weekDay[index].coming && compareDates(weekDay[index].date, weekDay)" class="green-dot-loggedInUser"></span>
+            <div v-if="weekDay">
+                <span v-if="weekDay.coming && compareDates(weekDay.date, userWeekObj[index])" class="green-dot-loggedInUser"></span>
                 <span v-else class="red-dot-loggedInUser"></span>
             </div>
-            <span class="red-dot-loggedInUser"></span>
+            <span v-else class="red-dot-loggedInUser"></span>
         </td>
     </tr>
 </template>
