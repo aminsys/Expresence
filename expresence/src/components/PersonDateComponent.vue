@@ -1,12 +1,24 @@
 <script setup>
 
+import LoggedInUser from './LoggedInUserComponent.vue';
 import {useDataStore} from '@/stores/DataStore.js';
-import {watch} from 'vue';
+import {ref, watch, onMounted} from 'vue';
 
 const props = defineProps(['weekObj']);
-
+const isMounted = ref(false);
 const dataStore = useDataStore();
-dataStore.populateData();
+const loggedInUserData = ref(null);
+
+function getLoggedInUserData(usersDataParam, loggedInUserName){
+    for(let i = 0; i < usersDataParam.length; i++){
+        if(usersDataParam[i].name === loggedInUserName){
+            var data = JSON.parse(JSON.stringify(usersDataParam[i]));
+            usersDataParam.splice(i, 1);
+            return data;
+        }
+    }
+    return null;
+}
 
 function compareDates(apiDate, calendarDate) {
     let d1 = new Date(apiDate);
@@ -18,9 +30,16 @@ watch(props, async() =>{
     dataStore.populateData();
 });
 
+onMounted(async () => {
+    await dataStore.populateData();
+    loggedInUserData.value = getLoggedInUserData(dataStore.data,"Han Kang");
+    isMounted.value = true;
+});
+
 </script>
 
 <template>
+    <LoggedInUser v-if="isMounted && loggedInUserData" :loggedInUserData="loggedInUserData" />
     <tr v-for="person in dataStore.data">
         <td>
             {{ person.name }}
