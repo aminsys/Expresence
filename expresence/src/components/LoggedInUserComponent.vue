@@ -13,7 +13,7 @@ function compareDates(apiDate, calendarDate) {
 
 const toggleStatus = (loggedInUserData, index) => {
     loggedInUserData.days[index].status === 2 ? 
-    loggedInUserData.days[index].status = 0 : 
+    loggedInUserData.days[index].status = 1 : 
     loggedInUserData.days[index].status++;
 }
 
