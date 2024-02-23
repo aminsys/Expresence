@@ -11,6 +11,6 @@ pages: # the job must be named pages
     
   artifacts:
     paths:
-      - public/ # artifact path must be /public for GitLab Pages to pick it up
+      - ./expresence/public # artifact path must be /public for GitLab Pages to pick it up
   only:
     - main
