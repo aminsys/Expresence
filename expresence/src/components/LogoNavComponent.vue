@@ -1,4 +1,5 @@
 <script setup>
+import Calendar from '../components/CalendarComponent.vue';
 
 Date.prototype.getWeek = function () {
   var onejan = new Date(this.getFullYear(), 0, 1);
@@ -6,13 +7,8 @@ Date.prototype.getWeek = function () {
 }
 
 var weekNumber = (new Date()).getWeek();
+const name = "Olga Tokarczuk"; // api call in the future?!
 
-defineProps({
-  name: {
-    type: String,
-    required: true
-  }
-})
 </script>
 
 <template>
@@ -24,6 +20,7 @@ defineProps({
     </div>
 
   </div>
+  <Calendar :userName="name" />
 </template>
 
 <style scoped>

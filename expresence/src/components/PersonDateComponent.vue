@@ -4,7 +4,7 @@ import LoggedInUser from './LoggedInUserComponent.vue';
 import { useDataStore } from '@/stores/DataStore.js';
 import { ref, watch, onMounted } from 'vue';
 
-const props = defineProps(['weekObj']);
+const props = defineProps(['weekObj', 'userName']);
 const isMounted = ref(false);
 const dataStore = useDataStore();
 const loggedInUserData = ref(null);
@@ -28,12 +28,12 @@ function compareDates(apiDate, calendarDate) {
 
 watch(props, async () => {
     await dataStore.populateData();
-    loggedInUserData.value = getLoggedInUserData(dataStore.data, "Haruki Murakami");
+    loggedInUserData.value = getLoggedInUserData(dataStore.data, props.userName);
 });
 
 onMounted(async () => {
     await dataStore.populateData();
-    loggedInUserData.value = getLoggedInUserData(dataStore.data, "Haruki Murakami");
+    loggedInUserData.value = getLoggedInUserData(dataStore.data, props.userName);
     isMounted.value = true;
 });
 
