@@ -7,7 +7,7 @@ pages: # the job must be named pages
     - mv ./expresence/public ./expresence/public-vue # GitLab Pages hooks on the public folder
     - ls ./expresence/
     - mv ./expresence/dist ./expresence/public # rename the dist folder (result of npm run build)
-    - ls ./expresence/dist
+    - ls ./expresence/public
     
   artifacts:
     paths:
