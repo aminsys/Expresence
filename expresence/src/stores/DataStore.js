@@ -11,7 +11,7 @@ export const useDataStore = defineStore("DataStore", {
 
     actions: {
         async populateData(){
-            this.data = (await axios.get("/src/static-api.com.json")).data;
+            this.data = (await axios.get("https://mocki.io/v1/3e0d9cab-22d0-4439-9b03-feeee8c52f06")).data;
         },
     }
 

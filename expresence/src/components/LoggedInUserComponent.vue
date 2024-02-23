@@ -1,10 +1,13 @@
 <script setup>
-const props = defineProps(['loggedInUserData', 'userWeekObj']);
+const props = defineProps(['loggedInUserData', 'weekObj']);
 
 
 function compareDates(apiDate, calendarDate) {
+    if (apiDate === null) {
+        return false;
+    }
     let d1 = new Date(apiDate);
-    d1 = d1.toDateString().slice(0,10);
+    d1 = d1.toDateString().slice(0, 10);
     return d1 === calendarDate;
 }
 
@@ -15,12 +18,16 @@ function compareDates(apiDate, calendarDate) {
         <td class="logged-in-username">
             {{ loggedInUserData.name }}
         </td>
-        <td v-for="(weekDay, index) in loggedInUserData.days" :key="index">
-            <div v-if="weekDay">
-                <span v-if="weekDay.coming && compareDates(weekDay.date, userWeekObj[index])" class="green-dot-loggedInUser"></span>
-                <span v-else class="red-dot-loggedInUser"></span>
-            </div>
-            <span v-else class="red-dot-loggedInUser"></span>
+        <td v-for="(weekDay, index) in weekObj" :key="index">
+            <span
+                v-if="loggedInUserData.days[index].status === 0 && compareDates(loggedInUserData.days[index].dateObject, weekDay)"
+                    class="gray-dot-loggedInUser"></span>
+            <span
+                v-else-if="loggedInUserData.days[index].status === 1 && compareDates(loggedInUserData.days[index].dateObject, weekDay)"
+                class="green-dot-loggedInUser"></span>
+            <span
+                v-else-if="loggedInUserData.days[index].status === 2 && compareDates(loggedInUserData.days[index].dateObject, weekDay)"
+                class="red-dot-loggedInUser"></span>
         </td>
     </tr>
 </template>
@@ -31,6 +38,7 @@ function compareDates(apiDate, calendarDate) {
     font-weight: bold;
     color: white;
 }
+
 .green-dot-loggedInUser {
     height: 40px;
     width: 40px;
@@ -50,4 +58,15 @@ function compareDates(apiDate, calendarDate) {
     border-color: #C42C3B;
     box-shadow: 0px 0px 4px 1px #C9404D;
 }
+
+.gray-dot-loggedInUser {
+    height: 40px;
+    width: 40px;
+    background-color: gray;
+    border-radius: 50%;
+    display: inline-block;
+    border-color: #d6d1d2;
+    box-shadow: 0px 0px 4px 1px #f4f2f2;
+}
+
 </style>
