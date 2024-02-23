@@ -11,6 +11,12 @@ function compareDates(apiDate, calendarDate) {
     return d1 === calendarDate;
 }
 
+const toggleStatus = (loggedInUserData, index) => {
+    loggedInUserData.days[index].status === 2 ? 
+    loggedInUserData.days[index].status = 0 : 
+    loggedInUserData.days[index].status++;
+}
+
 </script>
 
 <template>
@@ -21,13 +27,13 @@ function compareDates(apiDate, calendarDate) {
         <td v-for="(weekDay, index) in weekObj" :key="index">
             <span
                 v-if="loggedInUserData.days[index].status === 0 && compareDates(loggedInUserData.days[index].dateObject, weekDay)"
-                    class="gray-dot-loggedInUser"></span>
+                    class="gray-dot-loggedInUser" @click="toggleStatus(loggedInUserData, index)"></span>
             <span
                 v-else-if="loggedInUserData.days[index].status === 1 && compareDates(loggedInUserData.days[index].dateObject, weekDay)"
-                class="green-dot-loggedInUser"></span>
+                class="green-dot-loggedInUser" @click="toggleStatus(loggedInUserData, index)"></span>
             <span
                 v-else-if="loggedInUserData.days[index].status === 2 && compareDates(loggedInUserData.days[index].dateObject, weekDay)"
-                class="red-dot-loggedInUser"></span>
+                class="red-dot-loggedInUser" @click="toggleStatus(loggedInUserData, index)"></span>
         </td>
     </tr>
 </template>
@@ -67,6 +73,10 @@ function compareDates(apiDate, calendarDate) {
     display: inline-block;
     border-color: #d6d1d2;
     box-shadow: 0px 0px 4px 1px #f4f2f2;
+}
+
+[class$="-dot-loggedInUser"]:hover {
+    cursor: pointer;
 }
 
 </style>
