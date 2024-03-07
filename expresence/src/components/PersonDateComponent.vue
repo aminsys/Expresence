@@ -27,12 +27,12 @@ function compareDates(apiDate, calendarDate) {
 }
 
 watch(props, async () => {
-    await dataStore.populateData();
+    await dataStore.populateData(props.weekObj[0], props.weekObj[4]);
     loggedInUserData.value = getLoggedInUserData(dataStore.data, props.userName);
 });
 
 onMounted(async () => {
-    await dataStore.populateData();
+    await dataStore.populateData(props.weekObj[0], props.weekObj[4]);
     loggedInUserData.value = getLoggedInUserData(dataStore.data, props.userName);
     isMounted.value = true;
 });
@@ -40,7 +40,7 @@ onMounted(async () => {
 </script>
 
 <template>
-    <LoggedInUser v-if="isMounted" :loggedInUserData="loggedInUserData" :weekObj="weekObj" />
+    <LoggedInUser v-if="isMounted && loggedInUserData !== null" :loggedInUserData="loggedInUserData" :weekObj="weekObj" />
     <tr v-for="person in dataStore.data">
         <td>
             {{ person.name }}
@@ -54,6 +54,7 @@ onMounted(async () => {
                 class="red-dot"></span>
         </td>
     </tr>
+    
 </template>
 
 <style>

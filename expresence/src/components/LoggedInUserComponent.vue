@@ -1,40 +1,77 @@
 <script setup>
+import { ref, watch, onMounted } from 'vue';
 const props = defineProps(['loggedInUserData', 'weekObj']);
 
+var controlledUserDates = ref(null);
+const isMounted = ref(false);
 
-function compareDates(apiDate, calendarDate) {
-    if (apiDate === null) {
-        return false;
+function toggleStatus(index) {
+    controlledUserDates.value[index].status === 2 ? 
+    controlledUserDates.value[index].status = 1 : 
+    controlledUserDates.value[index].status++;
+    controlledUserDates.value[index].dateObject = props.weekObj[index];
+
+    // Add code to update status on database.
+}
+
+
+async function checkMatchingDates(userDates, weekDates){
+    const newArray = [];
+    if(userDates.length !== weekDates.length){
+        const newUserDates = convertDatesToText(userDates);
+        for(let i = 0; i < weekDates.length; i++){
+            if(!newUserDates.includes(weekDates[i])){
+                newArray.push({ dateObject: null, status: 0 });
+            }
+            else {
+                let index = newUserDates.findIndex((item) => item === weekDates[i]);
+                newArray.push({ dateObject: weekDates[i], status: userDates[index].status });
+            }
+        }
+        return newArray;
     }
-    let d1 = new Date(apiDate);
-    d1 = d1.toDateString().slice(0, 10);
-    return d1 === calendarDate;
+    else {
+        return userDates;
+    }
 }
 
-const toggleStatus = (loggedInUserData, index) => {
-    loggedInUserData.days[index].status === 2 ? 
-    loggedInUserData.days[index].status = 1 : 
-    loggedInUserData.days[index].status++;
+function convertDatesToText(dates){
+    const newDates = [];
+    for(let i = 0; i < dates.length; i++){
+        newDates.push(new Date(dates[i].dateObject).toString().slice(0, 10));
+    }
+    return newDates;
 }
+
+watch(props, async () => {
+    controlledUserDates.value = await checkMatchingDates(props.loggedInUserData.days, props.weekObj);
+});
+
+onMounted(async () => {
+    controlledUserDates.value = await checkMatchingDates(props.loggedInUserData.days, props.weekObj);
+    isMounted.value = true;
+});
 
 </script>
 
 <template>
-    <tr>
+    <tr v-if="isMounted">
         <td class="logged-in-username">
             {{ loggedInUserData.name }}
         </td>
         <td v-for="(weekDay, index) in weekObj" :key="index">
             <span
-                v-if="loggedInUserData.days[index].status === 0 && compareDates(loggedInUserData.days[index].dateObject, weekDay)"
-                    class="gray-dot-loggedInUser" @click="toggleStatus(loggedInUserData, index)"></span>
+                v-if="controlledUserDates[index].dateObject === weekDay && controlledUserDates[index].status === 0"
+                class="gray-dot-loggedInUser" @click="toggleStatus(index)"></span>
             <span
-                v-else-if="loggedInUserData.days[index].status === 1 && compareDates(loggedInUserData.days[index].dateObject, weekDay)"
-                class="green-dot-loggedInUser" @click="toggleStatus(loggedInUserData, index)"></span>
+                v-else-if="controlledUserDates[index].dateObject === weekDay && controlledUserDates[index].status === 1"
+                class="green-dot-loggedInUser" @click="toggleStatus(index)"></span>
             <span
-                v-else-if="loggedInUserData.days[index].status === 2 && compareDates(loggedInUserData.days[index].dateObject, weekDay)"
-                class="red-dot-loggedInUser" @click="toggleStatus(loggedInUserData, index)"></span>
-        </td>
+                v-else-if="controlledUserDates[index].dateObject === weekDay && controlledUserDates[index].status === 2"
+                class="red-dot-loggedInUser" @click="toggleStatus(index)"></span>
+            <span
+                v-else class="gray-dot-loggedInUser" @click="toggleStatus(index)"></span>       
+        </td>        
     </tr>
 </template>
 
