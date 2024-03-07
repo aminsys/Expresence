@@ -52,6 +52,8 @@ onMounted(async () => {
                 class="green-dot"></span>
             <span v-else-if="person.days[index].status === 2 && compareDates(person.days[index].dateObject, weekDay)"
                 class="red-dot"></span>
+            <span
+                v-else class="gray-dot"></span>
         </td>
     </tr>
     

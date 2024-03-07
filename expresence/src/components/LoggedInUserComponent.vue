@@ -70,7 +70,7 @@ onMounted(async () => {
                 v-else-if="controlledUserDates[index].dateObject === weekDay && controlledUserDates[index].status === 2"
                 class="red-dot-loggedInUser" @click="toggleStatus(index)"></span>
             <span
-                v-else class="gray-dot-loggedInUser" @click="toggleStatus(index)"></span>       
+                v-else class="gray-dot-loggedInUser" @click="toggleStatus(index)"></span>
         </td>        
     </tr>
 </template>
