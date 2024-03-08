@@ -12,6 +12,10 @@ const name = "Olga Tokarczuk"; // api call in the future?!
 </script>
 
 <template>
+  <div id="nav">
+    <router-link to="/">Home</router-link> | 
+    <router-link to="/about">About</router-link>
+  </div>
   <div class="LogoArea">
     <img alt="Expresence logo" class="logo" src="@/assets/icons8-calendar-48.png" width="62" height="62" />
     <div>
@@ -37,5 +41,20 @@ h3 {
 }
 
 
-@media (min-width: 1024px) {}
+@media (min-width: 1024px) {
+  html {
+    background-color: red;
+  }
+}
+
+#nav {
+    padding: 10px;
+    a {
+      font-weight: bold;
+      color: #2c3e50;
+      &.router-link-exact-active {
+        color: #42b983;
+      }
+    }
+  }
 </style>
