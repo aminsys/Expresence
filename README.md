@@ -1,6 +1,10 @@
-# expresence
+# Expresence
+## What is Expresence
 
-This template should help get you started developing with Vue 3 in Vite.
+This is a web application designed to facilitate co-working at the office and coordinating the attendance of colleagues that wish to meetup at the office. The word "Expresence" is a wordplay on Experis and Presence.
+
+The idea for this web application rose from the hassle of messaging colleagues over Teams for when one will be coming to the office to work together and socialize. 
+
 
 ## Recommended IDE Setup
 
@@ -11,6 +15,12 @@ This template should help get you started developing with Vue 3 in Vite.
 See [Vite Configuration Reference](https://vitejs.dev/config/).
 
 ## Project Setup
+
+Navigate to the project folder via:
+
+```sh
+cd expresence
+```
 
 ```sh
 npm install
