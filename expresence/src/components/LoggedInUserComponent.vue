@@ -5,6 +5,12 @@ const props = defineProps(['loggedInUserData', 'weekObj']);
 var controlledUserDates = ref(null);
 const isMounted = ref(false);
 
+function compareDates(apiDate, calendarDate) {
+    let d1 = new Date(apiDate);
+    d1 = d1.toDateString().slice(0, 10);
+    return d1 === calendarDate;
+}
+
 function toggleStatus(index) {
     controlledUserDates.value[index].status === 2 ? 
     controlledUserDates.value[index].status = 1 : 
@@ -61,13 +67,13 @@ onMounted(async () => {
         </td>
         <td v-for="(weekDay, index) in weekObj" :key="index">
             <span
-                v-if="controlledUserDates[index].dateObject === weekDay && controlledUserDates[index].status === 0"
+                v-if="compareDates(controlledUserDates[index].dateObject, weekDay) && controlledUserDates[index].status === 0"
                 class="gray-dot-loggedInUser" @click="toggleStatus(index)"></span>
             <span
-                v-else-if="controlledUserDates[index].dateObject === weekDay && controlledUserDates[index].status === 1"
+                v-else-if="compareDates(controlledUserDates[index].dateObject, weekDay) && controlledUserDates[index].status === 1"
                 class="green-dot-loggedInUser" @click="toggleStatus(index)"></span>
             <span
-                v-else-if="controlledUserDates[index].dateObject === weekDay && controlledUserDates[index].status === 2"
+                v-else-if="compareDates(controlledUserDates[index].dateObject, weekDay) && controlledUserDates[index].status === 2"
                 class="red-dot-loggedInUser" @click="toggleStatus(index)"></span>
             <span
                 v-else class="gray-dot-loggedInUser" @click="toggleStatus(index)"></span>
