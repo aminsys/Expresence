@@ -96,8 +96,8 @@ tr:nth-child(even) {
 }
 
 .btn {
-  height: 25px;
-  width: 25px;
+  height: 50px;
+  width: 50px;
   background-color: lightskyblue;
   border-radius: 50%;
   font-weight: bold;

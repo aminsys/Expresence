@@ -1,5 +1,15 @@
 <script setup>
+import { ref } from 'vue';
 import Calendar from '../components/CalendarComponent.vue';
+import { useUserStore } from '@/stores/UserStore';
+
+const userStore = useUserStore();
+const name = userStore.userData.fullname; // api call in the future?!
+const isLoggedIn = userStore.userData.isLoggedIn;
+
+function logOut(){
+  userStore.userData.isLoggedIn = false;
+}
 
 Date.prototype.getWeek = function () {
   var onejan = new Date(this.getFullYear(), 0, 1);
@@ -7,24 +17,29 @@ Date.prototype.getWeek = function () {
 }
 
 var weekNumber = (new Date()).getWeek();
-const name = "Olga Tokarczuk"; // api call in the future?!
+
 
 </script>
 
 <template>
   <div id="nav">
-    <router-link to="/">Home</router-link> | 
-    <router-link to="/about">About</router-link>
+    <router-link to="/home">Home</router-link> | 
+    <router-link to="/about">About</router-link> |
+    <router-link v-if="!isLoggedIn" to="/">Log In</router-link>
+    <router-link v-if="isLoggedIn" to="/" custom v-slot="{ navigate }">
+      <a class="logOut" @click="navigate(); logOut();">Log out</a>
+    </router-link>
   </div>
+
   <div class="LogoArea">
     <img alt="Expresence logo" class="logo" src="@/assets/icons8-calendar-48.png" width="62" height="62" />
     <div>
       <h3 class="week">Week: {{ weekNumber }}</h3>
-      <p>{{ name }}</p>
+      <p>{{ userStore.userData.fullname }}</p>
     </div>
 
   </div>
-  <Calendar :userName="name" />
+  <Calendar :userName="userStore.userData.fullname" />
 </template>
 
 <style scoped>
@@ -42,9 +57,6 @@ h3 {
 
 
 @media (min-width: 1024px) {
-  html {
-    background-color: red;
-  }
 }
 
 #nav {
@@ -56,5 +68,9 @@ h3 {
         color: #42b983;
       }
     }
+  }
+
+  .logOut:hover {
+    cursor: pointer;
   }
 </style>

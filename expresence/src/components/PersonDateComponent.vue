@@ -59,7 +59,7 @@ onMounted(async () => {
     
 </template>
 
-<style>
+<style scoped>
 .green-dot {
     height: 25px;
     width: 25px;
