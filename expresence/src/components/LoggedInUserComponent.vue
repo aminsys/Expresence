@@ -15,14 +15,32 @@ function toggleStatus(index) {
     controlledUserDates.value[index].status = 1 : 
     controlledUserDates.value[index].status++;
     controlledUserDates.value[index].dateObject = new Date(props.weekObj[index]).toLocaleString().slice(0, 10);
+    // Update sessionStorage's values
+    sessionStorage.setItem(props.weekObj[0], JSON.stringify(controlledUserDates.value));
 
     // Add code to update status on database.
 }
 
+function addNewDates(weekDates){
+    var newArray = [];
+    for(let i = 0; i < weekDates.length; i++){
+        let date = new Date(weekDates[i]).toLocaleString().slice(0, 10);
+        newArray.push({ dateObject: date, status: 0 });
+    }
+    return newArray;
+}
 
-function checkMatchingDates(userDates, weekDates){
-    const newArray = [];
+
+function fillInMissingDates(userDates, weekDates){
+    var newArray = [];
+    // If calendar is not on the same week as the user's data:
+    if(userDates[0].dateObject !== new Date(weekDates[0]).toLocaleString().slice(0, 10)
+    && userDates.length === weekDates.length){
+        newArray = addNewDates(weekDates);
+        return newArray;
+    }
     if(userDates.length !== weekDates.length){
+        
         for(let i = 0; i < weekDates.length; i++){
             let date = new Date(weekDates[i]).toLocaleString().slice(0, 10);
             if(!userDates.some(d => d.dateObject === date)){
@@ -41,11 +59,21 @@ function checkMatchingDates(userDates, weekDates){
 }
 
 watch(props, async () => {
-    controlledUserDates.value = checkMatchingDates(props.loggedInUserData.days, props.weekObj);
+    controlledUserDates.value = JSON.parse(sessionStorage.getItem(props.weekObj[0]));
+    if(controlledUserDates.value === null){
+        controlledUserDates.value = fillInMissingDates(props.loggedInUserData.days, props.weekObj);
+        let date = new Date(controlledUserDates.value[0].dateObject).toDateString().slice(0, 15);
+        sessionStorage.setItem(date, JSON.stringify(controlledUserDates.value));
+    }
 });
 
 onMounted(async () => {
-    controlledUserDates.value = checkMatchingDates(props.loggedInUserData.days, props.weekObj);
+    controlledUserDates.value = JSON.parse(sessionStorage.getItem(props.weekObj[0]));
+    if(controlledUserDates.value === null){
+        controlledUserDates.value = fillInMissingDates(props.loggedInUserData.days, props.weekObj);
+        let date = new Date(controlledUserDates.value[0].dateObject).toDateString().slice(0, 15);
+        sessionStorage.setItem(date, JSON.stringify(controlledUserDates.value));
+    }
     isMounted.value = true;
 });
 
