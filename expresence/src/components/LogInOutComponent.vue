@@ -13,7 +13,7 @@ function isSignInBtnActive(){
 }
 
 function logIn(){
-    localStorage.setItem("fullname", userStore.userData.fullname);
+    sessionStorage.setItem("fullname", userStore.userData.fullname);
     userStore.userData.isLoggedIn = true;
 }
 

@@ -4,13 +4,13 @@ import Calendar from '../components/CalendarComponent.vue';
 import { useUserStore } from '@/stores/UserStore';
 
 const userStore = useUserStore();
-const name = localStorage.getItem("fullname"); // api call in the future?!
+const name = sessionStorage.getItem("fullname"); // api call in the future?!
 const isLoggedIn = userStore.userData.isLoggedIn;
 
 function logOut(){
   userStore.userData.isLoggedIn = false;
   userStore.userData.fullname = "";
-  localStorage.clear();
+  sessionStorage.clear();
 }
 
 Date.prototype.getWeek = function () {
