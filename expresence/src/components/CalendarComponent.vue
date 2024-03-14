@@ -38,7 +38,7 @@ function getCurrentWeekDates(days) {
   // Iterate from the start date to the end date and add each date to the array
   while (currentDatePointer <= endDate) {
     let d = new Date(currentDatePointer);
-    weekDates.push(d.toDateString().slice(0,10));
+    weekDates.push(d.toDateString().slice(0,15));
     currentDatePointer.setDate(currentDatePointer.getDate() + 1);
   }
 
@@ -57,11 +57,11 @@ function getCurrentWeekDates(days) {
     <table>
       <tr>
         <th>Name</th>
-        <th>{{ weekDates[0] }}</th>
-        <th>{{ weekDates[1] }}</th>
-        <th>{{ weekDates[2] }}</th>
-        <th>{{ weekDates[3] }}</th>
-        <th>{{ weekDates[4] }}</th>
+        <th>{{ weekDates[0].slice(0,10) }}</th>
+        <th>{{ weekDates[1].slice(0,10) }}</th>
+        <th>{{ weekDates[2].slice(0,10) }}</th>
+        <th>{{ weekDates[3].slice(0,10) }}</th>
+        <th>{{ weekDates[4].slice(0,10) }}</th>
       </tr>
       <personDate :weekObj="weekDates" :userName="userName"></personDate>
     </table>

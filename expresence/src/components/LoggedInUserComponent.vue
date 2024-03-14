@@ -6,32 +6,31 @@ var controlledUserDates = ref(null);
 const isMounted = ref(false);
 
 function compareDates(apiDate, calendarDate) {
-    let d1 = new Date(apiDate);
-    d1 = d1.toDateString().slice(0, 10);
-    return d1 === calendarDate;
+    let d1 = new Date(calendarDate).toLocaleString().slice(0, 10);
+    return d1 === apiDate;
 }
 
 function toggleStatus(index) {
     controlledUserDates.value[index].status === 2 ? 
     controlledUserDates.value[index].status = 1 : 
     controlledUserDates.value[index].status++;
-    controlledUserDates.value[index].dateObject = props.weekObj[index];
+    controlledUserDates.value[index].dateObject = new Date(props.weekObj[index]).toLocaleString().slice(0, 10);
 
     // Add code to update status on database.
 }
 
 
-async function checkMatchingDates(userDates, weekDates){
+function checkMatchingDates(userDates, weekDates){
     const newArray = [];
     if(userDates.length !== weekDates.length){
-        const newUserDates = convertDatesToText(userDates);
         for(let i = 0; i < weekDates.length; i++){
-            if(!newUserDates.includes(weekDates[i])){
-                newArray.push({ dateObject: null, status: 0 });
+            let date = new Date(weekDates[i]).toLocaleString().slice(0, 10);
+            if(!userDates.some(d => d.dateObject === date)){
+                newArray.push({ dateObject: date, status: 0 });
             }
             else {
-                let index = newUserDates.findIndex((item) => item === weekDates[i]);
-                newArray.push({ dateObject: weekDates[i], status: userDates[index].status });
+                let index = userDates.findIndex((item) => item.dateObject === date);
+                newArray.push({ dateObject: date, status: userDates[index].status });
             }
         }
         return newArray;
@@ -41,20 +40,12 @@ async function checkMatchingDates(userDates, weekDates){
     }
 }
 
-function convertDatesToText(dates){
-    const newDates = [];
-    for(let i = 0; i < dates.length; i++){
-        newDates.push(new Date(dates[i].dateObject).toString().slice(0, 10));
-    }
-    return newDates;
-}
-
 watch(props, async () => {
-    controlledUserDates.value = await checkMatchingDates(props.loggedInUserData.days, props.weekObj);
+    controlledUserDates.value = checkMatchingDates(props.loggedInUserData.days, props.weekObj);
 });
 
 onMounted(async () => {
-    controlledUserDates.value = await checkMatchingDates(props.loggedInUserData.days, props.weekObj);
+    controlledUserDates.value = checkMatchingDates(props.loggedInUserData.days, props.weekObj);
     isMounted.value = true;
 });
 
@@ -76,7 +67,7 @@ onMounted(async () => {
                 v-else-if="compareDates(controlledUserDates[index].dateObject, weekDay) && controlledUserDates[index].status === 2"
                 class="red-dot-loggedInUser" @click="toggleStatus(index)"></span>
             <span
-                v-else class="gray-dot-loggedInUser" @click="toggleStatus(index)"></span>
+                v-else class="gray-dot-loggedInUser" @click="toggleStatus(index)">??</span>
         </td>        
     </tr>
 </template>

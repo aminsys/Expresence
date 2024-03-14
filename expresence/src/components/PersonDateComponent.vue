@@ -7,7 +7,7 @@ import { ref, watch, onMounted } from 'vue';
 const props = defineProps(['weekObj', 'userName']);
 const isMounted = ref(false);
 const dataStore = useDataStore();
-const loggedInUserData = ref(null);
+var loggedInUserData = null;
 
 function getLoggedInUserData(usersDataParam, loggedInUserName) {
     for (let i = 0; i < usersDataParam.length; i++) {
@@ -21,27 +21,50 @@ function getLoggedInUserData(usersDataParam, loggedInUserName) {
 }
 
 function compareDates(apiDate, calendarDate) {
-    let d1 = new Date(apiDate);
-    d1 = d1.toDateString().slice(0, 10);
-    return d1 === calendarDate;
+    if (apiDate === null) {
+        return false;
+    }
+    let d1 = new Date(calendarDate).toLocaleString().slice(0, 10);
+    return apiDate === d1;
 }
+
+
+function fillInMissingDates(usersData, weekDates) {
+    if (usersData.length !== weekDates.length) {
+        for (let p = 0; p < usersData.length; p++) { // Per person
+            for (let i = 0; i < weekDates.length; i++) { // Per day
+                let date = new Date(weekDates[i]).toLocaleString().slice(0, 10);
+                if (!usersData[p].days.some(item => item.dateObject === date)) {
+                    usersData[p].days.splice(i, 0, { dateObject: date, status: null });
+                }
+                if(i > 4){
+                    break;
+                }
+            }
+        }
+    }
+}
+
 
 watch(props, async () => {
     await dataStore.populateData(props.weekObj[0], props.weekObj[4]);
-    loggedInUserData.value = getLoggedInUserData(dataStore.data, props.userName);
+    loggedInUserData = getLoggedInUserData(dataStore.data, props.userName);
+    fillInMissingDates(dataStore.data, props.weekObj);
 });
 
 onMounted(async () => {
     await dataStore.populateData(props.weekObj[0], props.weekObj[4]);
-    loggedInUserData.value = getLoggedInUserData(dataStore.data, props.userName);
+    loggedInUserData = getLoggedInUserData(dataStore.data, props.userName);
+    fillInMissingDates(dataStore.data, props.weekObj);
     isMounted.value = true;
 });
 
 </script>
 
 <template>
-    <LoggedInUser v-if="isMounted && loggedInUserData !== null" :loggedInUserData="loggedInUserData" :weekObj="weekObj" />
-    <tr v-for="person in dataStore.data">
+    <LoggedInUser v-if="isMounted && loggedInUserData !== null" :loggedInUserData="loggedInUserData"
+        :weekObj="weekObj" />
+    <tr v-if="isMounted" v-for="person in dataStore.data">
         <td>
             {{ person.name }}
         </td>
@@ -52,11 +75,10 @@ onMounted(async () => {
                 class="green-dot"></span>
             <span v-else-if="person.days[index].status === 2 && compareDates(person.days[index].dateObject, weekDay)"
                 class="red-dot"></span>
-            <span
-                v-else class="gray-dot"></span>
+            <span v-else class="gray-dot">?</span>
         </td>
     </tr>
-    
+
 </template>
 
 <style scoped>

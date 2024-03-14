@@ -4,11 +4,13 @@ import Calendar from '../components/CalendarComponent.vue';
 import { useUserStore } from '@/stores/UserStore';
 
 const userStore = useUserStore();
-const name = userStore.userData.fullname; // api call in the future?!
+const name = localStorage.getItem("fullname"); // api call in the future?!
 const isLoggedIn = userStore.userData.isLoggedIn;
 
 function logOut(){
   userStore.userData.isLoggedIn = false;
+  userStore.userData.fullname = "";
+  localStorage.clear();
 }
 
 Date.prototype.getWeek = function () {
@@ -18,7 +20,6 @@ Date.prototype.getWeek = function () {
 
 var weekNumber = (new Date()).getWeek();
 
-
 </script>
 
 <template>
@@ -27,7 +28,7 @@ var weekNumber = (new Date()).getWeek();
     <router-link to="/about">About</router-link> |
     <router-link v-if="!isLoggedIn" to="/">Log In</router-link>
     <router-link v-if="isLoggedIn" to="/" custom v-slot="{ navigate }">
-      <a class="logOut" @click="navigate(); logOut();">Log out</a>
+      <a class="logOut" @click="logOut(); navigate();">Log out</a>
     </router-link>
   </div>
 
@@ -35,11 +36,11 @@ var weekNumber = (new Date()).getWeek();
     <img alt="Expresence logo" class="logo" src="@/assets/icons8-calendar-48.png" width="62" height="62" />
     <div>
       <h3 class="week">Week: {{ weekNumber }}</h3>
-      <p>{{ userStore.userData.fullname }}</p>
+      <p>{{ name }}</p>
     </div>
 
   </div>
-  <Calendar :userName="userStore.userData.fullname" />
+  <Calendar :userName="name" />
 </template>
 
 <style scoped>
