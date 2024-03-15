@@ -10,14 +10,27 @@ const dataStore = useDataStore();
 var loggedInUserData = null;
 
 function getLoggedInUserData(usersDataParam, loggedInUserName) {
+    var data = null;
     for (let i = 0; i < usersDataParam.length; i++) {
         if (usersDataParam[i].name === loggedInUserName) {
-            var data = JSON.parse(JSON.stringify(usersDataParam[i]));
+            data = JSON.parse(JSON.stringify(usersDataParam[i]));
             usersDataParam.splice(i, 1);
             return data;
         }
     }
-    return null;
+    
+    if(data === null){
+        return {
+            name: loggedInUserName,
+            days: [
+                { dateObject: props.weekObj[0], status: 0 },
+                { dateObject: props.weekObj[1], status: 0 },
+                { dateObject: props.weekObj[2], status: 0 },
+                { dateObject: props.weekObj[3], status: 0 },
+                { dateObject: props.weekObj[4], status: 0 }
+            ]
+        }
+    }
 }
 
 function compareDates(apiDate, calendarDate) {
