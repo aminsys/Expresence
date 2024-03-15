@@ -3,7 +3,9 @@
 
 This is a web application designed to facilitate co-working at the office and coordinating the attendance of colleagues that wish to meetup at the office. The word "Expresence" is a wordplay on Experis and Presence.
 
-The idea for this web application rose from the hassle of messaging colleagues over Teams for when one will be coming to the office to work together and socialize. 
+The idea for this web application rose from the hassle of messaging colleagues over Teams for when one will be coming to the office to work together and socialize.
+
+Visit the web app through this link: [Expresence](https://app1092604.gitlab.io/Expresence/)
 
 
 ## Recommended IDE Setup
