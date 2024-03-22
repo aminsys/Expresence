@@ -1,3 +1,9 @@
+variables:
+   CLIENT_ID: $CLIENT_ID
+   AUTHORITY: $AUTHORITY
+   REDIRECT_URI: $REDIRECT_URI
+   POST_LOGOUT_REDIRECT_URI: $POST_LOGOUT_REDIRECT_URI
+   
 pages: # the job must be named pages
   image: node:latest
   stage: deploy
