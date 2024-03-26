@@ -8,6 +8,7 @@ pages: # the job must be named pages
   image: node:latest
   stage: deploy
   script:
+    - echo REDIRECT_URI
     - npm ci --prefix ./expresence
     - npm run build --prefix ./expresence
     - mv ./expresence/public ./expresence/public-vue # GitLab Pages hooks on the public folder
