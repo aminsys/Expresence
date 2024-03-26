@@ -50,9 +50,6 @@ function fillInMissingDates(usersData, weekDates) {
                 if (!usersData[p].days.some(item => item.dateObject === date)) {
                     usersData[p].days.splice(i, 0, { dateObject: date, status: null });
                 }
-                if(i > 4){
-                    break;
-                }
             }
         }
     }

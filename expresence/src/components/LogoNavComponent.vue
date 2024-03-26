@@ -1,15 +1,13 @@
 <script setup>
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
 import Calendar from '../components/CalendarComponent.vue';
-import { useUserStore } from '@/stores/UserStore';
+import { useAuth } from "@/useAuth";
+import { MSALObj, state } from "@/msalConfig";
 
-const userStore = useUserStore();
-const name = sessionStorage.getItem("fullname"); // api call in the future?!
-const isLoggedIn = userStore.userData.isLoggedIn;
+const { logout, handleRedirect } = useAuth();
 
-function logOut(){
-  userStore.userData.isLoggedIn = false;
-  userStore.userData.fullname = "";
+function handleLogout(){
+  logout();
   sessionStorage.clear();
 }
 
@@ -20,27 +18,40 @@ Date.prototype.getWeek = function () {
 
 var weekNumber = (new Date()).getWeek();
 
+const initialize = async () => {
+    try {
+        await MSALObj.initialize();
+    } catch(error) {
+        console.log("Initialization error", error);
+    }
+}
+
+onMounted(async () => {
+    await initialize();
+    await handleRedirect();
+});
+
 </script>
 
 <template>
   <div id="nav">
     <router-link to="/home">Home</router-link> | 
     <router-link to="/about">About</router-link> |
-    <router-link v-if="!isLoggedIn" to="/">Log In</router-link>
-    <router-link v-if="isLoggedIn" to="/" custom v-slot="{ navigate }">
-      <a class="logOut" @click="logOut(); navigate();">Log out</a>
+    <router-link v-if="!state.isAuthenticated" to="/">Log In</router-link>
+    <router-link v-if="state.isAuthenticated" to="/" custom v-slot="{ navigate }">
+      <a class="logOut" @click="handleLogout(); navigate();">Log out</a>
     </router-link>
   </div>
 
-  <div class="LogoArea">
+  <div v-if="state.isAuthenticated" class="LogoArea">
     <img alt="Expresence logo" class="logo" src="@/assets/icons8-calendar-48.png" width="62" height="62" />
     <div>
       <h3 class="week">Week: {{ weekNumber }}</h3>
-      <p>{{ name }}</p>
+      <p>{{ state.user.name }}</p>
     </div>
 
   </div>
-  <Calendar :userName="name" />
+  <Calendar v-if="state.isAuthenticated" :userName="state.user.name" />
 </template>
 
 <style scoped>

@@ -5,14 +5,13 @@ export const useDataStore = defineStore("DataStore", {
     // state
     state: () => {
         return {
-            data: [],
-            // persons: []
+            data: []
         };
     },
 
     actions: {
         async populateData(fromDate, toDate){
-                this.data = (await axios.get("https://mocki.io/v1/3e0d9cab-22d0-4439-9b03-feeee8c52f06")).data;            
+                this.data = (await axios.get("http://localhost:5224/api/v1/persons-with-days?fromDate="+fromDate+"&toDate="+toDate)).data;            
             },
     }
 

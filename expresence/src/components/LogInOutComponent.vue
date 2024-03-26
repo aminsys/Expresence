@@ -1,34 +1,48 @@
-<script setup>
+<script setup lang="ts">
 
-import { useUserStore } from "@/stores/UserStore.js";
+import { useAuth } from "@/useAuth";
+import { MSALObj, state } from "@/msalConfig";
+import { onMounted } from "vue";
 
-const userStore = useUserStore();
+const { login, handleRedirect } = useAuth();
 
-function isSignInBtnActive(){
+/*function isSignInBtnActive(){
     if(userStore.userData.fullname.length < 3){
         return true;
     }
     return false;
+}*/
+
+async function handleLogin(){
+    await login();
 }
 
-function logIn(){
-    sessionStorage.setItem("fullname", userStore.userData.fullname);
-    userStore.userData.isLoggedIn = true;
+const initialize = async () => {
+    try {
+        await MSALObj.initialize();
+    } catch(error) {
+        console.log("Initialization error", error);
+    }
 }
+
+onMounted(async () => {
+    await initialize();
+    await handleRedirect();
+});
 
 </script>
 
 <template>
     <div class="vue-tempalte">
         <form>
-            <div>
+            <!--div>
                 <label>Full Name</label>
                 <router-link to="/home" custom v-slot="{ navigate }">
-                    <input v-model.trim="userStore.userData.fullname" placeholder="Enter your full name" @keydown.enter.prevent = "navigate(); logIn()" />
+                    <input v-model.trim="userStore.userData.fullname" placeholder="Enter your full name" @keydown.enter.prevent = "handleLogin()" />
                 </router-link>
-            </div>
+            </div-->
             <router-link to="/home" custom v-slot="{ navigate }">
-                <button :disabled="isSignInBtnActive()" type="button" @click="navigate(); logIn()" role="link">Sign In</button>
+                <button type="button" @click="navigate(); handleLogin()" role="link">Sign In with Microsoft ID</button>
             </router-link>
         </form>
     </div>
