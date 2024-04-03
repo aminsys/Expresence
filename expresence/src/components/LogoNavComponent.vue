@@ -6,6 +6,7 @@ import { MSALObj, state } from "@/msalConfig";
 
 const { logout, handleRedirect } = useAuth();
 
+
 function handleLogout(){
   logout();
   sessionStorage.clear();
@@ -51,7 +52,7 @@ onMounted(async () => {
     </div>
 
   </div>
-  <Calendar v-if="state.isAuthenticated" :userName="state.user.name" />
+  <Calendar v-if="state.isAuthenticated"/>
 </template>
 
 <style scoped>

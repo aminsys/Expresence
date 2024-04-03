@@ -1,8 +1,6 @@
 <script setup>
 import { ref } from 'vue';
-import personDate from './PersonDateComponent.vue';
-
-const props = defineProps(['userName']);
+import LoggedInUser from './LoggedInUserComponent.vue';
 
 let weekCounter = 0;
 
@@ -63,7 +61,7 @@ function getCurrentWeekDates(days) {
         <th>{{ weekDates[3].slice(0,10) }}</th>
         <th>{{ weekDates[4].slice(0,10) }}</th>
       </tr>
-      <personDate :weekObj="weekDates" :userName="userName"></personDate>
+      <LoggedInUser :weekObj="weekDates"></LoggedInUser>
     </table>
   </div>
 </template>
