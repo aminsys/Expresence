@@ -1,13 +1,13 @@
 variables:
   API_TOKEN: $DEPLOYMENT_TOKEN
-  APP_PATH: '$CI_PROJECT_DIR/expresence'
-  OUTPUT_PATH: '$CI_PROJECT_DIR/expresence/dist'
+  APP_PATH: $CI_PROJECT_DIR/expresence
+  OUTPUT_PATH: $CI_PROJECT_DIR/expresence/dist
 
 deploy:
   script:
     - echo "App deploying started"
     - echo APP_PATH
-    - echo $CI_PROJECT_DIR
+    - echo $CI_PROJECT_DIR/expresence
 
   #stage: deploy
   #image: registry.gitlab.com/static-web-apps/azure-static-web-apps-deploy
