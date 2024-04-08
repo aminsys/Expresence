@@ -1,15 +1,23 @@
 <script setup>
-    import { ref } from 'vue';
+import { ref } from 'vue';
 
-    const moreInfo = ref("Please be patient. This might take a minute.");
-    const showInfo = ref(false);
-    setTimeout(() => {
-        showInfo.value = true;
+const moreInfo = ref("Please be patient. This might take a minute.");
+const showInfo = ref(false);
+const seriousError = ref(false);
+const seriousErrorInfo = ref("Something is seriously wrong here. Please contact support.");
+setTimeout(() => {
+    showInfo.value = true;
+}, 10000);
 
-    }, 10000);
+setTimeout(() => {
+    seriousError.value = true;
+    showInfo.value = false;
+    var loadingIcon = document.getElementById("loading");
+    loadingIcon.classList.remove("lds-spinner");
+}, 15000);
 </script>
 <template>
-    <div class="lds-spinner">
+    <div id="loading" class="lds-spinner">
         <div></div>
         <div></div>
         <div></div>
@@ -24,6 +32,9 @@
         <div></div>
     </div>
     <div v-if="showInfo">{{ moreInfo }}</div>
+
+    <div v-if="seriousError" class='error-circle'></div>
+    <div v-if="seriousError">{{ seriousErrorInfo }}</div>
 </template>
 
 <style>
@@ -128,4 +139,35 @@
         opacity: 0;
     }
 }
+
+*{box-sizing: border-box}
+:root{background: #ccc}
+div.error-circle{
+    background: red;
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    position: relative;
+    margin: 40px auto;
+    box-shadow: 0 0 0 10px white, 0 0 24px 12px #B3B3B3, inset 0 0 16px 1px #B3B3B3;
+    font-size: xx-large;
+}
+
+div.error-circle:before, div.error-circle:after{
+    content: ''; 
+    position:absolute;
+    width: 20px;
+    height: 100px;
+    left: 64px;
+    top: 25px;
+    box-shadow: 0 0 16px 1px #B3B3B3;
+    background: white
+}
+div.error-circle:before{
+    transform: skew(28deg)
+}
+div.error-circle:after{
+    transform: skew(-28deg);
+}
+
 </style>
