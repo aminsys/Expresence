@@ -6,8 +6,8 @@ variables:
 deploy:
   script:
     - echo "App deploying started"
-    - echo '$CI_PROJECT_DIR/expresence'
-    - echo '$CI_PROJECT_DIR/expresence/dist'
+    - echo APP_PATH
+    - echo $CI_PROJECT_DIR
 
   #stage: deploy
   #image: registry.gitlab.com/static-web-apps/azure-static-web-apps-deploy
