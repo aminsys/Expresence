@@ -4,7 +4,7 @@ import { ref } from 'vue';
 const moreInfo = ref("Please be patient. This might take a minute.");
 const showInfo = ref(false);
 const seriousError = ref(false);
-const seriousErrorInfo = ref("Something is seriously wrong here. Please contact support.");
+const seriousErrorInfo = ref("Something is seriously wrong here. Please refresh the page again.");
 setTimeout(() => {
     showInfo.value = true;
 }, 10000);
@@ -14,7 +14,7 @@ setTimeout(() => {
     showInfo.value = false;
     var loadingIcon = document.getElementById("loading");
     loadingIcon.classList.remove("lds-spinner");
-}, 15000);
+}, 70000);
 </script>
 <template>
     <div id="loading" class="lds-spinner">
