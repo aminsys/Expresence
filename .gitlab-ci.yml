@@ -1,7 +1,7 @@
 variables:
   API_TOKEN: $DEPLOYMENT_TOKEN
-  APP_PATH: '$CI_PROJECT_DIR/expresence'
-  OUTPUT_PATH: '$CI_PROJECT_DIR/expresence/dist'
+  APP_PATH: '$CI_PROJECT_DIR'
+  OUTPUT_PATH: '$CI_PROJECT_DIR/dist'
 
 deploy:
   stage: deploy
