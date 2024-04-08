@@ -4,9 +4,14 @@ variables:
   OUTPUT_PATH: '$CI_PROJECT_DIR/expresence/dist'
 
 deploy:
-  stage: deploy
-  image: registry.gitlab.com/static-web-apps/azure-static-web-apps-deploy
   script:
-    - echo "App deployed successfully."
+    - echo "App deploying started"
     - echo '$CI_PROJECT_DIR/expresence'
     - echo '$CI_PROJECT_DIR/expresence/dist'
+
+  #stage: deploy
+  #image: registry.gitlab.com/static-web-apps/azure-static-web-apps-deploy
+  #script:
+  #  - echo "App deployed successfully."
+  #  - echo '$CI_PROJECT_DIR/expresence'
+  #  - echo '$CI_PROJECT_DIR/expresence/dist'
