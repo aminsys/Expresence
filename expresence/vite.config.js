@@ -33,6 +33,6 @@ export default defineConfig({
   
   transpileDependencies: true,
   publicPath: publicPath(),
-  // outputDir: 'public',
+  outputDir: 'public',
   base: "/Expresence/"
 })
