@@ -1,11 +1,8 @@
 {
-    "trailingSlash": "auto",
-    "routes": [
-      {
-        "route": "/Expresence*"
-      }
-    ],
-    "globalHeaders": {
-      "content-security-policy": "default-src https: 'unsafe-eval' 'unsafe-inline'; object-src 'none'"
+    "navigationFallback": {
+      "rewrite": "/index.html",
+      "exclude": [
+        "*.{jpg,gif,png,ico,svg}"
+      ]
     }
   }
