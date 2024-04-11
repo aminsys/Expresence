@@ -4,7 +4,7 @@ import Calendar from '../components/CalendarComponent.vue';
 import { useAuth } from "@/useAuth";
 import { MSALObj, state } from "@/msalConfig";
 
-const { logout, handleRedirect } = useAuth();
+const { isAuthenticated, logout, handleRedirect } = useAuth();
 
 
 function handleLogout(){
@@ -38,13 +38,13 @@ onMounted(async () => {
   <div id="nav">
     <router-link to="/home">Home</router-link> | 
     <router-link to="/about">About</router-link> |
-    <router-link v-if="!state.isAuthenticated" to="/">Log In</router-link>
-    <router-link v-if="state.isAuthenticated" to="/" custom v-slot="{ navigate }">
+    <router-link v-if="!isAuthenticated" to="/">Log In</router-link>
+    <router-link v-if="isAuthenticated" to="/" custom v-slot="{ navigate }">
       <a class="logOut" @click="handleLogout(); navigate();">Log out</a>
     </router-link>
   </div>
 
-  <div v-if="state.isAuthenticated" class="LogoArea">
+  <div v-if="isAuthenticated" class="LogoArea">
     <img alt="Expresence logo" class="logo" src="@/assets/icons8-calendar-48.png" width="62" height="62" />
     <div>
       <h3 class="week">Week: {{ weekNumber }}</h3>
@@ -52,7 +52,7 @@ onMounted(async () => {
     </div>
 
   </div>
-  <Calendar v-if="state.isAuthenticated"/>
+  <Calendar v-if="isAuthenticated"/>
 </template>
 
 <style scoped>
