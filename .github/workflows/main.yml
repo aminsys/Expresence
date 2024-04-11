@@ -22,6 +22,6 @@ jobs:
         git init
         git add -A
         git commit -m 'Deploy to Github Pages - run number: $GITHUB_RUN_NUMBER'
-        git push -f https://aminsys:${{ secrets.GITHUB_TOKEN }}@github.com/aminsys/Expresence.git main:gh-pages
+        git push -f https://aminsys:${{ secrets.GITHUB_TOKEN }}@github.com/aminsys/Expresence.git master:gh-pages
       shell: bash
         
