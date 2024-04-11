@@ -11,9 +11,11 @@ jobs:
 
     - name: Build and deploy app to gh-pages
       run: |
-        cd ./expresence
         npm ci
         npm run build
+      working-directory: ./expresence
+    - name: deploy to gh-pages
+      run: |
         git init
         git add -A
         git commit -m 'Deploy to Github Pages - run number: $GITHUB_RUN_NUMBER'
