@@ -17,6 +17,7 @@ jobs:
     - name: deploy to gh-pages
       run: |
         echo "Current folder path: $PWD"
+        ls
         git config user.email "amin.yassin@live.com"
         git config user.name "aminsys"
         git init
