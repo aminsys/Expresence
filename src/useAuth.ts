@@ -14,8 +14,6 @@ export function useAuth() {
             isAuthenticated.value = true
             console.log("Login success: " + loginResponse)
         } catch(error) {
-            console.log("import: " + import.meta.env.VITE_REDIRECT_URI)
-            console.log("Process.env: " + process.env.VITE_REDIRECT_URI)
             console.error("Login error: " + error)
             isAuthenticated.value = false
         }

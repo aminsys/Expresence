@@ -32,9 +32,6 @@ onMounted(async () => {
     await handleRedirect();
 });
 
-console.log("LoggedIn User import: " + import.meta.env.VITE_REDIRECT_URI)
-    console.log("LoggedIn User Process.env: " + process.env.VITE_REDIRECT_URI)
-
 </script>
 
 <template>
