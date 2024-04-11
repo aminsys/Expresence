@@ -8,14 +8,13 @@ export function useAuth() {
             if(!MSALObj) {
                 throw new Error("MSAL not initialized. Call initializeMsal() before using MSAL API.")
             }
-            await MSALObj.loginRedirect()
-            isAuthenticated.value = true
 
-            const loginResponse = await MSALObj.loginRedirect()
+            const loginResponse = await MSALObj.loginPopup()
             isAuthenticated.value = true
             console.log("Login success: " + loginResponse)
         } catch(error) {
             console.error("Login error: " + error)
+            isAuthenticated.value = false
         }
     }
 
@@ -23,7 +22,7 @@ export function useAuth() {
         if(!MSALObj) {
             throw new Error("MSAL not initialized. Call initializeMsal() before using MSAL API.")
         }
-        MSALObj.logoutRedirect()
+        MSALObj.logoutPopup()
         isAuthenticated.value = false
         console.log("Logged out")
     }
@@ -34,6 +33,7 @@ export function useAuth() {
             state.user = MSALObj.getAllAccounts()[0]
         } catch(error) {
             console.log("Redirect error: ", error)
+            isAuthenticated.value = false
         }
     }
 
