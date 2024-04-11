@@ -17,7 +17,7 @@ jobs:
           VITE_POST_LOGOUT_REDIRECT_URI: ${{ secrets.VITE_POST_LOGOUT_REDIRECT_URI }}
           VITE_REDIRECT_URI: ${{ secrets.VITE_REDIRECT_URI }}
       run: |
-        if [ ${{ env.VITE_REDIRECT_URI }} == '' ]; then echo "VITE_REDIRECT_URI is emtpy"; else echo ${{ env.VITE_REDIRECT_URI }}; fi
+        if [ ${{secrets.VITE_REDIRECT_URI}} == '' ]; then echo "VITE_REDIRECT_URI is emtpy"; else echo "This is the redir: $VITE_REDIRECT_URI"; fi
         npm ci
         npm run build
         cd dist
