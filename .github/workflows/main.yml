@@ -16,11 +16,13 @@ jobs:
       working-directory: ./expresence
     - name: deploy to gh-pages
       run: |
+        echo "Current folder path: $PWD"
+        ls
         git config user.email "amin.yassin@live.com"
         git config user.name "aminsys"
         git init
         git add -A
         git commit -m 'Deploy to Github Pages - run number: $GITHUB_RUN_NUMBER'
-        git push -f https://aminsys:${{ secrets.GITHUB_TOKEN }}@github.com/aminsys/Expresence.git main:gh-pages
+        git push -f https://aminsys:${{ secrets.GITHUB_TOKEN }}@github.com/aminsys/Expresence.git master:gh-pages
       shell: bash
         
