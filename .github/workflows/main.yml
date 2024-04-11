@@ -16,6 +16,7 @@ jobs:
       working-directory: ./expresence
     - name: deploy to gh-pages
       run: |
+        echo "Current folder path: $PWD"
         git config user.email "amin.yassin@live.com"
         git config user.name "aminsys"
         git init
