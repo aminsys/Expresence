@@ -20,8 +20,10 @@ jobs:
     #  run: npm run build --prefix ./expresence
 
     - id: Build-Vue
-      uses: xRealNeon/VuePagesAction@1.0.1
+      uses: |
+        cd ./expresence
+        xRealNeon/VuePagesAction@1.0.1
       with:
         username: 'aminsys'
-        reponame: 'Expresence/expresence'
+        reponame: 'Expresence'
         token: ${{ secrets.GITHUB_TOKEN }}
