@@ -21,8 +21,8 @@ jobs:
         npm run build
         cd dist
         ln -s index.html 404.html
-        git config user.email "amin.yassin@live.com"
-        git config user.name "Aminsys"
+        git config --global user.email "amin.yassin@live.com"
+        git config --global user.name "aminsys"
         git init
         git add -A
         git commit -m 'Deploying to Github Pages - Deploy attempt number $GITHUB_RUN_NUMBER'
