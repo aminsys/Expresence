@@ -30,7 +30,7 @@ onMounted(async () => {
     <div class="vue-tempalte">
         <form>
             <router-link to="/home" custom v-slot="{ navigate }">
-                <button type="button" @click="navigate(); handleLogin()" role="link">
+                <button type="button" @click="handleLogin(); navigate()" role="link">
                     <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="50" height="50"
                         viewBox="0 0 48 48">
                         <path fill="#ff5722" d="M6 6H22V22H6z" transform="rotate(-180 14 14)"></path>

@@ -10,7 +10,7 @@ export function useAuth() {
                 throw new Error("MSAL not initialized. Call initializeMsal() before using MSAL API.")
             }
 
-            const loginResponse = await MSALObj.loginPopup(graphScopes)
+            const loginResponse = await MSALObj.loginRedirect(graphScopes)
             isAuthenticated.value = true
             console.log("Login success: " + loginResponse)
         } catch(error) {
@@ -23,7 +23,7 @@ export function useAuth() {
         if(!MSALObj) {
             throw new Error("MSAL not initialized. Call initializeMsal() before using MSAL API.")
         }
-        await MSALObj.logoutPopup()
+        await MSALObj.loginRedirect()
         isAuthenticated.value = false
         console.log("Logged out")
     }
