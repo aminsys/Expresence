@@ -8,22 +8,15 @@ jobs:
     name: Build Vue
     steps:
     - uses: actions/checkout@v2
-    #- name: Navigate to expresence folder and npm isntall
-    #  run: |
-    #    cd ./expresence
-    #    echo "Current folder path: $PWD"
-    #    ls
-    #    npm install
-    #- name: Install dependencies
-    #  run: npm install
-    #- name: Build project Expresence
-    #  run: npm run build --prefix ./expresence
 
-    - id: Build-Vue
-      uses: |
+    - name: Build and deploy app to gh-pages
+      run: |
         cd ./expresence
-        xRealNeon/VuePagesAction@1.0.1
-      with:
-        username: 'aminsys'
-        reponame: 'Expresence'
-        token: ${{ secrets.GITHUB_TOKEN }}
+        npm ci
+        npm run build
+        git init
+        git add -A
+        git commit -m 'Deploy to Github Pages - run number: $GITHUB_RUN_NUMBER'
+        git push -f https://aminsys:${{ secrets.GITHUB_TOKEN }}@github.com/aminsys/Expresence.git main:gh-pages
+      shell: bash
+        
