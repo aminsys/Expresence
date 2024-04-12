@@ -23,7 +23,7 @@ export function useAuth() {
         if(!MSALObj) {
             throw new Error("MSAL not initialized. Call initializeMsal() before using MSAL API.")
         }
-        await MSALObj.loginRedirect()
+        await MSALObj.logoutRedirect()
         isAuthenticated.value = false
         console.log("Logged out")
     }
