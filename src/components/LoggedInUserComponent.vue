@@ -20,7 +20,8 @@ var credentials = btoa(state.user.name + ':' + state.user.username);
 var header = {
     headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Basic ${credentials}`
+        'Authorization': `Basic ${credentials}`,
+        'Access-Control-Allow-Origin': 'https://aminsys.github.io'
     }
 };
 
