@@ -9,7 +9,7 @@ const { isAuthenticated, logout, handleRedirect } = useAuth();
 
 function handleLogout(){
   logout();
-  sessionStorage.clear();
+  // sessionStorage.clear();
 }
 
 Date.prototype.getWeek = function () {

@@ -29,22 +29,31 @@ function compareDates(apiDate, calendarDate) {
     return d1 === apiDate;
 }
 
-function toggleStatus(index) {
+async function toggleStatus(index) {
     controlledUserDates.value[index].status === 2 ?
         controlledUserDates.value[index].status = 1 :
         controlledUserDates.value[index].status++;
     controlledUserDates.value[index].dateObject = new Date(props.weekObj[index]).toLocaleString().slice(0, 10);
     // Update sessionStorage's values
-    sessionStorage.setItem(props.weekObj[0], JSON.stringify(controlledUserDates.value));
+    // sessionStorage.setItem(props.weekObj[0], JSON.stringify(controlledUserDates.value));
 
     // Add code to update status on database.
+    var result = await dataStore.updateDay({
+        id: controlledUserDates.value[index].id,
+        personId: controlledUserDates.value[index].personId,
+        dateObject: controlledUserDates.value[index].dateObject,
+        status: controlledUserDates.value[index].status
+    }, header);
+    if(result !== ""){
+        controlledUserDates.value[index].id = result.id;
+    }
 }
 
 function addNewDates(weekDates) {
     var newArray = [];
     for (let i = 0; i < weekDates.length; i++) {
         let date = new Date(weekDates[i]).toLocaleString().slice(0, 10);
-        newArray.push({ dateObject: date, status: 0 });
+        newArray.push({ personId: loggedInUserData.id, dateObject: date, status: 0 });
     }
     return newArray;
 }
@@ -52,27 +61,24 @@ function addNewDates(weekDates) {
 
 function fillInMissingDates(userDates, weekDates) {
     var newArray = [];
-    // If user's array is emtpy:
+    // If user's days are emtpy:
     if(userDates.length === 0){
-        newArray = addNewDates(weekDates);
+        return addNewDates(weekDates);
     }
     // If calendar is not on the same week as the user's data:
-    else if (userDates[0].dateObject !== new Date(weekDates[0]).toLocaleString().slice(0, 10)
-        && userDates.length === weekDates.length) {
-        newArray = addNewDates(weekDates);
-        return newArray;
+    else if (userDates[0].dateObject !== new Date(weekDates[0]).toLocaleString().slice(0, 10) && userDates.length === weekDates.length) {
+        return addNewDates(weekDates);
     }
     // If the user ONLY has some days defined in a week:
-    if (userDates.length !== weekDates.length) {
-
+    else if (userDates.length !== weekDates.length) {
         for (let i = 0; i < weekDates.length; i++) {
             let date = new Date(weekDates[i]).toLocaleString().slice(0, 10);
             if (!userDates.some(d => d.dateObject === date)) {
-                newArray.push({ dateObject: date, status: 0 });
+                newArray.push({ personId: loggedInUserData.id, dateObject: date, status: 0 });
             }
             else {
                 let index = userDates.findIndex((item) => item.dateObject === date);
-                newArray.push({ dateObject: date, status: userDates[index].status });
+                newArray.push({ id: userDates[index].id , personId: loggedInUserData.id, dateObject: date, status: userDates[index].status });
             }
         }
         return newArray;
@@ -92,32 +98,20 @@ function getLoggedInUserData(dataStoreParam, loggedInUserName) {
         }
     }
 
-    if (data === null) {
-        return {
-            name: loggedInUserName,
-            days: [
-                { dateObject: props.weekObj[0], status: 0 },
-                { dateObject: props.weekObj[1], status: 0 },
-                { dateObject: props.weekObj[2], status: 0 },
-                { dateObject: props.weekObj[3], status: 0 },
-                { dateObject: props.weekObj[4], status: 0 }
-            ]
-        }
-    }
+    console.log("##### getLoggedInUserData() apparently can return nothing. #####");
 }
 
 async function checkIfUserExists() {
     try {
         await dataStore.getAllPersons(header);
         if (!dataStore.persons.includes(state.user.username)) {
-            console.log("User doesn't exist");
             await dataStore.addNewUser({
                 "name": state.user.name,
                 "emailAddress": state.user.username
             });
         }
         else {
-            console.log("User ALREADY exists in database: " + state.user.username);
+            console.log("User exists");
         }
     }
     catch (error) {
@@ -131,12 +125,15 @@ watch(props, async () => {
     var toDate = new Date(props.weekObj[4]).toLocaleDateString();
     await dataStore.populateData(fromDate, toDate, header);
     loggedInUserData = getLoggedInUserData(dataStore.data, state.user.name);
-    controlledUserDates.value = JSON.parse(sessionStorage.getItem(props.weekObj[0]));
+    controlledUserDates.value = fillInMissingDates(loggedInUserData.days, props.weekObj);
+
+    /*controlledUserDates.value = JSON.parse(sessionStorage.getItem(props.weekObj[0]));
     if (controlledUserDates.value === null) {
         controlledUserDates.value = fillInMissingDates(loggedInUserData.days, props.weekObj);
         let date = new Date(controlledUserDates.value[0].dateObject).toDateString().slice(0, 15);
         sessionStorage.setItem(date, JSON.stringify(controlledUserDates.value));
-    }
+    }*/
+
 });
 
 onMounted(async () => {
@@ -145,12 +142,14 @@ onMounted(async () => {
     await checkIfUserExists();
     await dataStore.populateData(fromDate, toDate, header);
     loggedInUserData = getLoggedInUserData(dataStore.data, state.user.name);
-    controlledUserDates.value = JSON.parse(sessionStorage.getItem(props.weekObj[0]));
+    controlledUserDates.value = fillInMissingDates(loggedInUserData.days, props.weekObj);
+
+    /*controlledUserDates.value = JSON.parse(sessionStorage.getItem(props.weekObj[0]));
     if (controlledUserDates.value === null) {
         controlledUserDates.value = fillInMissingDates(loggedInUserData.days, props.weekObj);
         let date = new Date(controlledUserDates.value[0].dateObject).toDateString().slice(0, 15);
         sessionStorage.setItem(date, JSON.stringify(controlledUserDates.value));
-    }
+    }*/
     isMounted.value = true;
 });
 
@@ -177,7 +176,7 @@ onMounted(async () => {
             <span v-else class="gray-dot-loggedInUser" @click="toggleStatus(index)">??</span>
         </td>
     </tr>
-    <personDate v-if="isMounted" :weekObj="weekObj" :dataStore="dataStore"></personDate>
+    <personDate v-if="isMounted" :weekObj="weekObj" :dataStore="dataStore.data"></personDate>
 </template>
 
 <style>
