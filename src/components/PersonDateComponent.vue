@@ -20,7 +20,7 @@ function fillInMissingDates(usersData, weekDates) {
             for (let i = 0; i < weekDates.length; i++) { // Per day
                 let date = new Date(weekDates[i]).toLocaleString().slice(0, 10);
                 if (!usersData[p].days.some(item => item.dateObject === date)) {
-                    usersData[p].days.splice(i, 0, { dateObject: date, status: 0 });
+                    usersData[p].days.splice(i, 0, { personId: usersData[p].id, dateObject: date, status: 0 });
                 }
             }
         }
@@ -29,18 +29,18 @@ function fillInMissingDates(usersData, weekDates) {
 
 
 watch(props, async () => {
-    fillInMissingDates(props.dataStore.data, props.weekObj);
+    fillInMissingDates(props.dataStore, props.weekObj);
 });
 
 onMounted(async () => {
-    fillInMissingDates(props.dataStore.data, props.weekObj);
+    fillInMissingDates(props.dataStore, props.weekObj);
     isMounted.value = true;
 });
 
 </script>
 
 <template>
-    <tr v-if="isMounted" v-for="person in props.dataStore.data">
+    <tr v-if="isMounted" v-for="person in props.dataStore">
         <td>
             {{ person.name }}
         </td>

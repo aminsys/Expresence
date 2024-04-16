@@ -34,5 +34,5 @@ export default defineConfig({
   transpileDependencies: true,
   publicPath: publicPath(),
   outputDir: 'public',
-  base: "/Expresence/"
+  base: "/Expresence"
 })

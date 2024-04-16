@@ -13,7 +13,9 @@ setTimeout(() => {
     seriousError.value = true;
     showInfo.value = false;
     var loadingIcon = document.getElementById("loading");
-    loadingIcon.classList.remove("lds-spinner");
+    if(loadingIcon !== null){
+        loadingIcon.classList.remove("lds-spinner");
+    }
 }, 70000);
 </script>
 <template>
