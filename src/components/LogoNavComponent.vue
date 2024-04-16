@@ -45,7 +45,11 @@ onMounted(async () => {
   </div>
 
   <div v-if="isAuthenticated" class="LogoArea">
-    <img alt="Expresence logo" class="logo" src="@/assets/icons8-calendar-48.png" width="62" height="62" />
+    <!-- <img alt="Expresence logo" class="logo" src="@/assets/icons8-calendar-48.png" width="62" height="62" /> -->
+    <div id="temp">
+      <h3>This is an Beta version</h3>
+      <p>This is not the final version of this product</p>
+    </div>
     <div>
       <h3 class="week">Week: {{ weekNumber }}</h3>
       <p>{{ state.user.name }}</p>
@@ -85,5 +89,10 @@ h3 {
 
   .logOut:hover {
     cursor: pointer;
+  }
+
+  #temp{
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    color: red;
   }
 </style>
