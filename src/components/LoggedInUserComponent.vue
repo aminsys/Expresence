@@ -31,22 +31,21 @@ function compareDates(apiDate, calendarDate) {
 
 async function toggleStatus(index) {
     controlledUserDates.value[index].status === 2 ?
-        controlledUserDates.value[index].status = 1 :
+        controlledUserDates.value[index].status = 0 :
         controlledUserDates.value[index].status++;
     controlledUserDates.value[index].dateObject = new Date(props.weekObj[index]).toLocaleString().slice(0, 10);
-    // Update sessionStorage's values
-    // sessionStorage.setItem(props.weekObj[0], JSON.stringify(controlledUserDates.value));
 
     // Add code to update status on database.
-    var result = await dataStore.updateDay({
+    /*var result = await dataStore.updateDay({
         id: controlledUserDates.value[index].id,
         personId: controlledUserDates.value[index].personId,
         dateObject: controlledUserDates.value[index].dateObject,
         status: controlledUserDates.value[index].status
     }, header);
-    if(result !== ""){
+    if(result !== "") // User's day was created for the first time
+    {
         controlledUserDates.value[index].id = result.id;
-    }
+    }*/
 }
 
 function addNewDates(weekDates) {
@@ -166,13 +165,13 @@ onMounted(async () => {
         <td v-for="(weekDay, index) in weekObj" :key="index">
             <span
                 v-if="compareDates(controlledUserDates[index].dateObject, weekDay) && controlledUserDates[index].status === 0"
-                class="gray-dot-loggedInUser" @click="toggleStatus(index)"></span>
+                class="gray-dot-loggedInUser" @click="toggleStatus(index)"><span class="tooltip">Not decided</span></span>
             <span
                 v-else-if="compareDates(controlledUserDates[index].dateObject, weekDay) && controlledUserDates[index].status === 1"
-                class="green-dot-loggedInUser" @click="toggleStatus(index)"></span>
+                class="green-dot-loggedInUser" @click="toggleStatus(index)"><span class="tooltip">At office</span></span>
             <span
                 v-else-if="compareDates(controlledUserDates[index].dateObject, weekDay) && controlledUserDates[index].status === 2"
-                class="red-dot-loggedInUser" @click="toggleStatus(index)"></span>
+                class="red-dot-loggedInUser" @click="toggleStatus(index)"><span class="tooltip">At home</span></span>
             <span v-else class="gray-dot-loggedInUser" @click="toggleStatus(index)">??</span>
         </td>
     </tr>
@@ -216,8 +215,9 @@ onMounted(async () => {
     box-shadow: 0px 0px 4px 1px #f4f2f2;
 }
 
-[class$="-dot-loggedInUser"]:hover {
+[class$="-dot-loggedInUser"]:hover .tooltip{
     cursor: pointer;
+    visibility: visible;
 }
 
 .loading {
@@ -226,4 +226,24 @@ onMounted(async () => {
     top: 50%;
     text-align: center;
 }
+
+.tooltip {
+    visibility: hidden;
+    width: 120px;
+    background-color: rgba(255, 255, 255, 0.5);
+    color: black;
+    text-align: center;
+    border-radius: 12px;
+    padding: 5px 0;
+    font-size: 15px;
+    transition-delay: 0.5s;
+    font-weight: bold;
+    
+    /* Position the tooltip */
+    position: absolute;
+    z-index: 1;
+    margin-left: -60px;
+    top: 230px;
+}
+
 </style>

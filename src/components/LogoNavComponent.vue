@@ -92,7 +92,6 @@ h3 {
   }
 
   #temp{
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     color: red;
   }
 </style>
