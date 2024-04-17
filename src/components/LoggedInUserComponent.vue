@@ -13,7 +13,6 @@ var controlledUserDates = ref(null);
 const isMounted = ref(false);
 var loggedInUserData = null;
 
-// var credentials = btoa('JD Salinger' + ':' + 'admin@gmail.com');
 
 var credentials = btoa(state.user.name + ':' + state.user.username);
 
@@ -36,7 +35,7 @@ async function toggleStatus(index) {
     controlledUserDates.value[index].dateObject = new Date(props.weekObj[index]).toLocaleString().slice(0, 10);
 
     // Add code to update status on database.
-    /*var result = await dataStore.updateDay({
+    var result = await dataStore.updateDay({
         id: controlledUserDates.value[index].id,
         personId: controlledUserDates.value[index].personId,
         dateObject: controlledUserDates.value[index].dateObject,
@@ -45,7 +44,7 @@ async function toggleStatus(index) {
     if(result !== "") // User's day was created for the first time
     {
         controlledUserDates.value[index].id = result.id;
-    }*/
+    }
 }
 
 function addNewDates(weekDates) {
@@ -125,14 +124,6 @@ watch(props, async () => {
     await dataStore.populateData(fromDate, toDate, header);
     loggedInUserData = getLoggedInUserData(dataStore.data, state.user.name);
     controlledUserDates.value = fillInMissingDates(loggedInUserData.days, props.weekObj);
-
-    /*controlledUserDates.value = JSON.parse(sessionStorage.getItem(props.weekObj[0]));
-    if (controlledUserDates.value === null) {
-        controlledUserDates.value = fillInMissingDates(loggedInUserData.days, props.weekObj);
-        let date = new Date(controlledUserDates.value[0].dateObject).toDateString().slice(0, 15);
-        sessionStorage.setItem(date, JSON.stringify(controlledUserDates.value));
-    }*/
-
 });
 
 onMounted(async () => {
@@ -142,13 +133,6 @@ onMounted(async () => {
     await dataStore.populateData(fromDate, toDate, header);
     loggedInUserData = getLoggedInUserData(dataStore.data, state.user.name);
     controlledUserDates.value = fillInMissingDates(loggedInUserData.days, props.weekObj);
-
-    /*controlledUserDates.value = JSON.parse(sessionStorage.getItem(props.weekObj[0]));
-    if (controlledUserDates.value === null) {
-        controlledUserDates.value = fillInMissingDates(loggedInUserData.days, props.weekObj);
-        let date = new Date(controlledUserDates.value[0].dateObject).toDateString().slice(0, 15);
-        sessionStorage.setItem(date, JSON.stringify(controlledUserDates.value));
-    }*/
     isMounted.value = true;
 });
 
