@@ -9,7 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@azure/msal-browser": "^3.28.1",
+    "@azure/msal-browser": "^3.30.0",
     "@popperjs/core": "^2.11.8",
     "axios": "^1.8.3",
     "dotenv": "^16.5.0",
